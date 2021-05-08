@@ -1,0 +1,12 @@
+version: "3"
+# docker-compose tooling version number
+services:
+  node-app:
+    # name of the service you would like to give
+    build: .
+    # specifying this is the current working directory to build, or path to Dockerfile
+    ports:
+      - "3000:3000"
+    #  for mapping local 3000 port with container's 4000 port, since express is listening on port 4000 we're mapping to 4000 of container
+    environment:
+      - PORT=3000

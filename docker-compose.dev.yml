@@ -1,0 +1,16 @@
+version: "3"
+services:
+  node-app:
+    build:
+      context: .
+      args:
+        NODE_ENV: development
+    volumes:
+      # to synchronize given volume with docker container, so that written code/changes get's copied over the specified volumes. /app will be the default directory name for node application inside the docker container
+      - ./:/app
+        # . for current directory, /app for docker container working directory
+      - /app/node_modules
+        # in order to prevent overriding node_modules inside docker container with local project node_modules while syncing volumes. (In case we remove node_modules from local project, then syncing might delete node_modules inside containers project as well. )
+    environment:
+      - NODE_ENV=development
+    command: npm run dev
