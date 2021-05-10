@@ -71,11 +71,12 @@
     - [x] Docker-compose up -d
 - [ ] Removing docker via docker-compose
     - [ ] Docker-compose down
-    - [ ] 
 
     - [x] Docker compose tool will try to find the previously built image, and doesn’t build a new image even if the docker file has been changed, therefore we might end up referencing stale image. We need to tell docker-compose specifically to rebuild with the following command:
         - [x] Docker-compose up -d —build
-        - [ ] 
-
         - [x] Running docker-compose file with dev and prod env docker-compose file:
             - [x] docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+
+### Running specific docker-compose service without running their dependendant services ###
+-   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --no-deps node-app
+* node-app is service name

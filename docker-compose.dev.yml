@@ -13,4 +13,10 @@ services:
         # in order to prevent overriding node_modules inside docker container with local project node_modules while syncing volumes. (In case we remove node_modules from local project, then syncing might delete node_modules inside containers project as well. )
     environment:
       - NODE_ENV=development
+      - MONGO_USER=admin
+      - MONGO_PASSWORD=admin
     command: npm run dev
+  mongo:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin

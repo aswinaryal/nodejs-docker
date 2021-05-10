@@ -10,3 +10,14 @@ services:
     #  for mapping local 3000 port with container's 4000 port, since express is listening on port 4000 we're mapping to 4000 of container
     environment:
       - PORT=3000
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - mongo-db:/data/db
+volumes:
+  mongo-db:
