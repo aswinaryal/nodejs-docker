@@ -1,17 +1,21 @@
 # Docker #
 
-* DOCKER PS => GET ACTIVE DOCKER CONTAINERS
-* DOCKER PS -A => GET ALL DOCKER CONTAINERS
-* DOCKER IMAGES  => GET ALL IMAGES
-* DOCKER RM NAME_OF_CONTAINER -F => STOP RUNNING CONTAINER FORCEFULLY.
+* GET ACTIVE DOCKER CONTAINERS
+``` docker ps ```
+* GET ALL DOCKER CONTAINERS
+``` docker ps -a ```
+* GET ALL IMAGES
+``` docker images```
+* STOP RUNNING CONTAINER FORCEFULLY
+``` docker rm container_name/id -f  ```
 
 ### FYI: npm install —only=production, this will prevent devDependencies from getting installed while doing nom install in production environment. ###
 
-## Listing docker volumes ##
-- Docker volume ls
-
 ### IF you would like to print environment variables inside bash shell ###
-- printenv
+``` printenv ```
+
+## Listing docker volumes ##
+``` Docker volume ls ```
 
 
 *** If you made changes in Dockerfile then you need to rebuild the image using docker build, otherwise you can run docker image without building it. ***
@@ -67,16 +71,24 @@
 
 # Docker Compose #
 
-- [x] Running docker-compose.yml file
-    - [x] Docker-compose up -d
-- [ ] Removing docker via docker-compose
-    - [ ] Docker-compose down
+* Running docker-compose.yml file
+    ``` docker-compose up -d ```
+* Removing docker via docker-compose
+    ``` docker-compose down ```
+* Docker compose tool will try to find the previously built image, and doesn’t build a new image even if the docker file has been changed, therefore we might end up referencing stale image. We need to tell docker-compose specifically to rebuild with the following command:
+    ``` docker-compose up -d —build ```
+ 
+* Running docker-compose file with dev and prod env docker-compose file:
+``` docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build ```
 
-    - [x] Docker compose tool will try to find the previously built image, and doesn’t build a new image even if the docker file has been changed, therefore we might end up referencing stale image. We need to tell docker-compose specifically to rebuild with the following command:
-        - [x] Docker-compose up -d —build
-        - [x] Running docker-compose file with dev and prod env docker-compose file:
-            - [x] docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+* Stopping docker container via docker-compose
+``` docker-compose -f docker-compose.yml -f docker-compose.prod.yml down  ```
 
-### Running specific docker-compose service without running their dependendant services ###
--   docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --no-deps node-app
-* node-app is service name
+* Running specific docker-compose service without running their dependendant services
+``` docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --no-deps node-app ```
+    (node-app is service name)
+
+* when you've your container already up & running, and you want to rebuild the image; what going to happen is it's going to grab the old anonymous volumes and those anonymous volumes have got old deps and packages, but not the newly installed deps and packages, so we need to force docker to renew old anonymous volumes, two ways to solve this:
+    * using -V which will insure the creation of brand new anonymous volumes
+    ``` docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build -V ```
+    * OR, simply down and up container
