@@ -65,17 +65,18 @@
 
 # Docker Compose
 
-- Running docker-compose.yml file
+- Running docker containers via docker-compose.yml file (run this command in the project root level where docker-compose.yml exists)
   `docker-compose up -d`
-- Removing docker via docker-compose
+  - -d for detached mode
+- stop running docker containers via docker-compose:
   `docker-compose down`
 - Docker compose tool will try to find the previously built image, and doesn’t build a new image even if the docker file has been changed, therefore we might end up referencing stale image. We need to tell docker-compose specifically to rebuild with the following command:
   `docker-compose up -d —build`
 
-- Running docker-compose file with dev and prod env docker-compose file:
+- Specifying and Running docker-compose file with environment specific configuration (for eg: dev/prod):
   `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build`
 
-- Stopping docker container via docker-compose
+- Stopping environment specific docker container via docker-compose:
   `docker-compose -f docker-compose.yml -f docker-compose.prod.yml down `
 
 - Shut/stop down running containers via docker-compose with removing anonymous and named volumes (this deletes all the db mounted volumes as well)
