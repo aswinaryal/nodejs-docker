@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const redis = require("redis");
+const protect = require("./middleware/authMiddleware");
 
 const {
   MONGO_USER,
@@ -52,7 +53,7 @@ app.use(
       resave: false,
       saveUninitialized: false,
       httpOnly: true,
-      maxAge: 3000000
+      maxAge: 60000
     }
   })
 );
@@ -64,7 +65,7 @@ app.get("/", (req, res) => {
   res.send("<h2>Docker thing is amazing docker-composed </h2>");
 });
 
-app.use("/api/v1/posts", postRouter);
+app.use("/api/v1/posts", protect, postRouter);
 app.use("/api/v1/users", userRouter);
 
 app.listen(port, () => {

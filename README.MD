@@ -86,7 +86,9 @@
   `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --no-deps node-app`
   (node-app is service name)
 
-- when you've your container already up & running, and you want to rebuild the image; what going to happen is it's going to grab the old anonymous volumes and those anonymous volumes have got old deps and packages, but not the newly installed deps and packages, so we need to force docker to renew old anonymous volumes, two ways to solve this:
-  - using -V which will insure the creation of brand new anonymous volumes
-    `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build -V`
-  - OR, simply down and up container with --build flag.
+-After installing any new dependencies / when you've your container already up & running, and you want to rebuild the image with new installed dependencies.
+what going to happen is it's going to grab the old anonymous volumes and those anonymous volumes have got old deps and packages, but not the newly installed deps and packages, so we need to force docker to renew old anonymous volumes, two ways to solve this:
+
+- using -V which will insure the creation of brand new anonymous volumes
+  `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build -V`
+- OR, simply down and up container with --build flag.
