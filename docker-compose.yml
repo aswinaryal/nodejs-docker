@@ -1,13 +1,23 @@
 version: "3"
 # docker-compose tooling version number
 services:
+  nginx:
+    image: nginx:stable-alpine
+    ports:
+      - "3000:80"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      #mapping the configuration we've created into nginx container configuration file.
   node-app:
     # name of the service you would like to give
     build: .
     # specifying this is the current working directory to build, or path to Dockerfile
-    ports:
-      - "3000:3000"
-    #  for mapping local 3000 port with container's 4000 port, since express is listening on port 4000 we're mapping to 4000 of container
+
+    # ports:
+    #   - "3000:3000"
+    #  for mapping local 3000 port with container's 3000 port, since express is listening on port 3000 we're mapping to 4000 of container
+    # after introducing nginx, we don't need to expose port inside docker container for node app because it's specified by nginx service.
+
     environment:
       - PORT=3000
     depends_on:

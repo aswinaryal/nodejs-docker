@@ -8,6 +8,8 @@
   ` docker images`
 - STOP RUNNING CONTAINER FORCEFULLY
   `docker rm container_name/id -f `
+- View docker container logs successively
+  `docker logs container_id -f`
 
 ### FYI: npm install —only=production, this will prevent devDependencies from getting installed while doing nom install in production environment.
 
